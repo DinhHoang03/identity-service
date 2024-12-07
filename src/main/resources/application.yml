@@ -1,0 +1,23 @@
+#Thi?t l?p th?ng tin c? b?n c?a ?ng d?ng
+application:
+  name: identity-service #T?n ?ng d?ng
+profiles:
+  active: dev #Ch?n profile ho?t ??ng (dev,prod, test)
+
+#C?u h?nh m?y ch? v? c?ng
+server:
+  port: 8080 #C?ng m? ?ng d?ng s? ch?y
+  servlet:
+    context-path: /identity
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/identity_service #URL k?t n?i MySQL
+    username: root
+    password: dinh1012
+    driver-class-name: com.mysql.cj.jdbc.Driver #Driver JDBC cho MySQL
+
+  jpa:
+    hibernate:
+      ddl-auto: update #Ch? ?? t? ??ng t?o/ s?a b?ng
+    show-sql: true #Hi?n th? c?u l?nh SQL trong console
