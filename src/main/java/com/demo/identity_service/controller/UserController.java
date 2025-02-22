@@ -7,6 +7,9 @@ import com.demo.identity_service.dto.response.UserResponse;
 import com.demo.identity_service.entity.User;
 import com.demo.identity_service.service.UserService;
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,18 +17,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-    @Autowired
-    private UserService userService;
+
+    UserService userService;
 
     @PostMapping
     APIResponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
-        APIResponse<User> apiResponse = new APIResponse<>();
-
+        /**APIResponse<User> apiResponse = new APIResponse<>();
         apiResponse.setResult(userService.createUser(request));
-        apiResponse.setMessage("User account is succesfully created!");
-
-        return apiResponse;
+        apiResponse.setMessage("User account is succesfully created!");*/
+        return APIResponse.<User>builder()
+                .result(userService.createUser(request))
+                .message("User account is succesfully created!")
+                .build();
     }
 
     @GetMapping

@@ -1,6 +1,5 @@
 package com.demo.identity_service.dto.request;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,3 +20,4 @@ public class UserCreationRequest {
     String lastName;
     LocalDate dob;
 }
+

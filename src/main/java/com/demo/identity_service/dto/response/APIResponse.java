@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class APIResponse<T> {
+    @Builder.Default
     int code = 1000; //Success API code(Other error code will be defined in enum class)
     String message;
     T result;
