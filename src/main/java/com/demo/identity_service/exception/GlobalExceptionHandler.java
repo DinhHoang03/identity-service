@@ -20,7 +20,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
-    /** Xử lý ngoại lệ không xác định trong hệ thống*/
+    /**
+    // Xử lý ngoại lệ không xác định trong hệ thống
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<APIResponse> handlingException(Exception exception){
         APIResponse apiResponse = new APIResponse();
@@ -30,6 +31,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(apiResponse);
     }
+    */
 
     /** Xử lý ngoại lệ của validation*/
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

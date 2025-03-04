@@ -21,3 +21,6 @@ spring:
     hibernate:
       ddl-auto: update #Ch? ?? t? ??ng t?o/ s?a b?ng
     show-sql: true #Hi?n th? c?u l?nh SQL trong console
+
+jwt:
+  signerKey: "uaDHV/qC/EYd56gjiFO3kbcEL8G/k+NKC4eBnXq4QhWeiroqHNJXgnmDsBlEVDPB"

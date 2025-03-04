@@ -1,7 +1,7 @@
 package com.demo.identity_service.exception;
 
 public enum ErrorCode {
-    UNCATEGORIZED_EXCEPTION(1011, "Unknow Exception!"),
+    //UNCATEGORIZED_EXCEPTION(1011, "Unknow Exception!"),
     INVALID_KEY(1001, "Invalid Missed Key"),
     USER_EXISTED(1002, "User existed!"),
     USER_NOT_EXISTED(1003, "User not existed!"),
