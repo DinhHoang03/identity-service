@@ -2,6 +2,7 @@ package com.demo.identity_service.exception;
 
 import com.demo.identity_service.dto.response.APIResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,10 +18,12 @@ public class GlobalExceptionHandler {
         apiResponse.setCode(errorCode.getCode());
         apiResponse.setMessage(errorCode.getMessage());
 
-        return ResponseEntity.badRequest().body(apiResponse);
+        return ResponseEntity
+                .status(errorCode.getHttpStatusCode())
+                .body(apiResponse);
     }
 
-    /**
+
     // Xử lý ngoại lệ không xác định trong hệ thống
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<APIResponse> handlingException(Exception exception){
@@ -31,7 +34,21 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(apiResponse);
     }
-    */
+
+
+    @ExceptionHandler(value = AccessDeniedException.class)
+    ResponseEntity<APIResponse> handlingAccessDeniedException(AccessDeniedException e){
+        ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
+
+        return ResponseEntity
+                .status(errorCode.getHttpStatusCode())
+                .body(
+                        APIResponse.builder()
+                                .code(errorCode.getCode())
+                                .message(errorCode.getMessage())
+                                .build()
+                );
+    }
 
     /** Xử lý ngoại lệ của validation*/
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
