@@ -1,7 +1,9 @@
 package com.demo.identity_service.configuration;
 
+import com.demo.identity_service.entity.InvalidatedToken;
 import com.demo.identity_service.entity.User;
 import com.demo.identity_service.enums.Role;
+import com.demo.identity_service.repository.InvalidatedTokenRepository;
 import com.demo.identity_service.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 
 @Configuration
@@ -22,9 +28,10 @@ import java.util.HashSet;
 public class ApplicationInitConfig {
 
     PasswordEncoder passwordEncoder;
+    InvalidatedTokenRepository invalidatedTokenRepository;
 
     @Bean
-    ApplicationRunner applicationRunner(UserRepository userRepository){
+    ApplicationRunner createAdmin(UserRepository userRepository){
         return args -> {
           if(userRepository.findByUsername("admin").isEmpty()){
               var roles = new HashSet<String>();
@@ -40,4 +47,11 @@ public class ApplicationInitConfig {
           }
         };
     }
+
+//    @Scheduled(cron = "0 0 * * * ?")
+//    public void cleanExpiredTokens(){
+//        long oneHourInMillis = 60 * 60 * 1000; //60 min * 60s * 1000ms
+//        Date expiredDate = new Date(System.currentTimeMillis() - oneHourInMillis);
+//        invalidatedTokenRepository.deleteByExpirationTimeBefore(expiredDate);
+//    }
 }
